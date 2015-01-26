@@ -94,14 +94,14 @@ public class Engine {
         } else if(display == 3) {
             temp = ciphertext.replaceAll("\\s+","");
             int interval = 5;
-            String result = temp.substring(0, interval);
-            for (int i = interval; i < temp.length(); i = i+interval) {
-                if(i + interval < temp.length()) {
-                    result += " " + temp.substring(i, i + interval);
-                } else {
-                    result += " " + temp.substring(i);
-                }
+            int idx = 0;
+            String result = "";
+            while(idx + interval < temp.length()) {
+                result += temp.substring(idx, idx + interval) + " ";
+                idx += interval;
+                System.out.println(result);
             }
+            result += temp.substring(idx);
             temp = result;
         }
         return temp;
