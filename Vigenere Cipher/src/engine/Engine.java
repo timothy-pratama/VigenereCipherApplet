@@ -5,6 +5,14 @@
  */
 package engine;
 
+import java.awt.datatransfer.DataFlavor;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.time.Clock;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author timothy.pratama
@@ -42,10 +50,10 @@ public class Engine {
     private void createVigenereSquare26() {
         vigenereSquare26 = new char[26][26];
         int c;
-        for (int b=0; b<26; b++) { //range 65 - 90
+        for (int b=0; b<26; b++) { //range 97 - 122
             for (int k=0; k<26; k++) {
-                c = b + k + 65;
-                if (c > 90) {
+                c = b + k + 97;
+                if (c > 122) {
                     c -= 26;
                 }
                 vigenereSquare26[b][k] = (char) c;
@@ -57,7 +65,7 @@ public class Engine {
         vigenereSquare256 = new char[256][256];
         int c;
         String output = "";
-        for (int b=0; b<256; b++) { //range 65 - 90
+        for (int b=0; b<256; b++) { 
             for (int k=0; k<256; k++) {
                 c = b + k;
                 if (c > 255) {
@@ -88,6 +96,7 @@ public class Engine {
 
     public void setPlaintext(String plaintext) {
         this.plaintext = plaintext;
+        this.plaintext = this.plaintext.toLowerCase();
     }
 
     public String getKey() {
@@ -114,8 +123,88 @@ public class Engine {
         this.display = display;
     }
     
+    public void readFile(String path) {
+        plaintext = "";
+        File file = new File(path);
+        try {
+            Scanner input = new Scanner(file);
+            do {
+                plaintext += input.nextLine() + "\n";
+            } while (input.hasNextLine());
+            plaintext = plaintext.toLowerCase();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Engine.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     /* Cryptography functions */
+    public void encrypt() {
+        createKey();
+        ciphertext = "";
+        int plaintextLength = plaintext.length();
+        char c;
+        char k;
+        int j = 0;
+        
+        if(mode == 1) { //standard
+            for(int i = 0; i<plaintextLength; i++) {
+                c = plaintext.charAt(i);
+                if(c == ' ' || c == '\n') {
+                    ciphertext += c;
+                } else {
+                    k = key.charAt(j);
+                    ciphertext += vigenereSquare26[((int) k) - 97][((int) c) - 97];
+                    j++;
+                }
+            }
+        } else if (mode == 2) { //extended
+            
+        } else { //autokey
+            
+        }
+    }
+    
+    private void createKey() {
+        int keyLength = key.length();
+        int plaintextLength = plaintext.length();
+        int j = 0;
+        
+        if(mode <= 2) {
+            for(int i=key.length(); i<plaintext.length(); i++) {
+                if(plaintext.charAt(i) != ' ') {
+                    if(plaintext.charAt(i) != '\n') {
+                        key += key.charAt(j % keyLength);
+                        j++;
+                    }
+                    else {
+                        
+                    }
+                } else {
+                    
+                }
+            }
+        }
+        else {
+            String temp = plaintext.replaceAll("\\s+","");
+            plaintextLength = temp.length();
+            for(int i=keyLength; i<plaintextLength; i++) {
+                while(plaintext.charAt(j) == ' ' || plaintext.charAt(j) == '\n') {
+                    j++;
+                }
+                key += plaintext.charAt(j);
+                j++;
+            }
+        }
+    }
+    
+    /* Main Class */
     public static void main(String[] args) {
         Engine e = new Engine();
+        e.setMode(1);
+        e.setPlaintext("abcdefghijklmnopqrstuvwxyz zyxwvutsrqponmlkjihgfedcba");
+        e.setKey("sony");
+        e.encrypt();
+        System.out.println(e.getPlaintext());
+        System.out.println(e.getCiphertext());
     }
 }
