@@ -8,7 +8,10 @@ package engine;
 import java.awt.datatransfer.DataFlavor;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.time.Clock;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -83,7 +86,25 @@ public class Engine {
 
     /* Getter and Setter */
     public String getCiphertext() {
-        return ciphertext;
+        String temp = "";
+        if(display == 1) {
+            temp = ciphertext;
+        } else if(display == 2) {
+            temp = ciphertext.replaceAll("\\s+","");
+        } else if(display == 3) {
+            temp = ciphertext.replaceAll("\\s+","");
+            int interval = 5;
+            String result = temp.substring(0, interval);
+            for (int i = interval; i < temp.length(); i = i+interval) {
+                if(i + interval < temp.length()) {
+                    result += " " + temp.substring(i, i + interval);
+                } else {
+                    result += " " + temp.substring(i);
+                }
+            }
+            temp = result;
+        }
+        return temp;
     }
 
     public void setCiphertext(String ciphertext) {
@@ -137,6 +158,17 @@ public class Engine {
         }
     }
     
+    /* save functions */
+    public void saveFile(String path) {
+        try {
+            PrintWriter writer = new PrintWriter(path, "UTF-8");
+            writer.print(ciphertext);
+            writer.close();
+        } catch (FileNotFoundException | UnsupportedEncodingException ex) {
+            Logger.getLogger(Engine.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     /* Cryptography functions */
     public void encrypt() {
         createKey();
@@ -146,7 +178,7 @@ public class Engine {
         char k;
         int j = 0;
         
-        if(mode == 1) { //standard
+        if(mode == 1 || mode == 3) { //standard
             for(int i = 0; i<plaintextLength; i++) {
                 c = plaintext.charAt(i);
                 if(c == ' ' || c == '\n') {
@@ -158,10 +190,59 @@ public class Engine {
                 }
             }
         } else if (mode == 2) { //extended
-            
-        } else { //autokey
-            
-        }
+            for(int i = 0; i<plaintextLength; i++) {
+                c = plaintext.charAt(i);
+                if(c == ' ' || c == '\n') {
+                    ciphertext += c;
+                } else {
+                    k = key.charAt(j);
+                    ciphertext += vigenereSquare256[((int) k)][((int) c)];
+                    j++;
+                }
+            }
+        } 
+    }
+    
+    public void decrypt() {
+        plaintext = "";
+        int ciphertextLength = ciphertext.length();
+        char c;
+        char k;
+        int j = 0;
+        
+        if(mode == 1 || mode == 3) { //standard
+            for(int i = 0; i<ciphertextLength; i++) {
+                c = ciphertext.charAt(i);
+                if(c == ' ' || c == '\n') {
+                    plaintext += c;
+                } else {
+                    k = key.charAt(j);
+                    for(int l=0; l<26; l++) {
+                        if(c == vigenereSquare26[((int)k)-97][l]) {
+                            plaintext += (char) (l+97);
+                            break;
+                        }
+                    }
+                    j++;
+                }
+            }
+        } else if (mode == 2) { //extended
+            for(int i = 0; i<ciphertextLength; i++) {
+                c = ciphertext.charAt(i);
+                if(c == ' ' || c == '\n') {
+                    plaintext += c;
+                } else {
+                    k = key.charAt(j);
+                    for(int l=0; l<256; l++) {
+                        if(c == vigenereSquare256[(int)k][l]) {
+                            plaintext += (char) (l);
+                            break;
+                        }
+                    }
+                    j++;
+                }
+            }
+        } 
     }
     
     private void createKey() {
@@ -201,10 +282,15 @@ public class Engine {
     public static void main(String[] args) {
         Engine e = new Engine();
         e.setMode(1);
-        e.setPlaintext("abcdefghijklmnopqrstuvwxyz zyxwvutsrqponmlkjihgfedcba");
+        e.setDisplay(3);
+        e.setPlaintext("this plaintext");
+//        e.setCiphertext("lvvq hzngfhrvl");
         e.setKey("sony");
         e.encrypt();
-        System.out.println(e.getPlaintext());
-        System.out.println(e.getCiphertext());
+//        e.decrypt();
+//        e.saveFile("output.txt");
+        System.out.println("plaintext: " + e.getPlaintext());
+        System.out.println("key: " + e.getKey());
+        System.out.println("ciphertext: " + e.getCiphertext());
     }
 }
