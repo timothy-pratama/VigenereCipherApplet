@@ -282,12 +282,12 @@ public class Engine {
     public static void main(String[] args) {
         Engine e = new Engine();
         e.setMode(1);
-        e.setDisplay(3);
-        e.setPlaintext("this plaintext");
-//        e.setCiphertext("lvvq hzngfhrvl");
+        e.setDisplay(1);
+//        e.setPlaintext("this plaintext");
+        e.setCiphertext("lvvq hzngfhrvl");
         e.setKey("sony");
-        e.encrypt();
-//        e.decrypt();
+//        e.encrypt();
+        e.decrypt();
 //        e.saveFile("output.txt");
         System.out.println("plaintext: " + e.getPlaintext());
         System.out.println("key: " + e.getKey());
