@@ -102,7 +102,7 @@ public class EngineTest {
         System.out.println("Test Decrypt Standard Vigenere Cipher");
         Engine instance = new Engine();
         
-        instance.setKey("sonysonysonys");
+        instance.setKey("sony");
         instance.setCiphertext("lvvq hzngfhrvl");
         instance.setMode(1);
         instance.setDisplay(1);
@@ -207,7 +207,6 @@ public class EngineTest {
         e.encrypt();
         
         String result = e.getCiphertext();
-        System.out.println(result);
         String expected = "tigtynirjayhzscmzleimjrbpshfndddjvocrpchwrasjhqiblviunrvsakybqowmmmsexlaylqfajbsqzrkuerdwaebjthkzxfvvvbngujhuzojskbziatdnamfjnkscqtigoeeekwp";
         assertEquals(expected, result);
     }

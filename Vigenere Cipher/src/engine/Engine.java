@@ -116,7 +116,6 @@ public class Engine {
 
     public void setPlaintext(String plaintext) {
         this.plaintext = plaintext.toLowerCase();
-        System.out.println("plaintext: " + this.plaintext);
     }
 
     public String getKey() {
@@ -203,6 +202,7 @@ public class Engine {
     }
     
     public void decrypt() {
+        createKey();
         plaintext = "";
         int ciphertextLength = ciphertext.length();
         char c;
@@ -246,22 +246,20 @@ public class Engine {
     
     private void createKey() {
         int keyLength = key.length();
-        int plaintextLength = plaintext.length();
+        int plaintextLength = plaintext.replaceAll("\\s+","").length();
+        int ciphertextLength = ciphertext.replaceAll("\\s+","").length();
+        int length;
+        if(plaintextLength > ciphertextLength) {
+            length = plaintextLength;
+        } else {
+            length = ciphertextLength;
+        }
         int j = 0;
         
         if(mode <= 2) {
-            for(int i=key.length(); i<plaintext.length(); i++) {
-                if(plaintext.charAt(i) != ' ') {
-                    if(plaintext.charAt(i) != '\n') {
-                        key += key.charAt(j % keyLength);
-                        j++;
-                    }
-                    else {
-                        
-                    }
-                } else {
-                    
-                }
+            for(int i=key.length(); i<length; i++) {
+                key += key.charAt(j % keyLength);
+                j++;               
             }
         }
         else {
