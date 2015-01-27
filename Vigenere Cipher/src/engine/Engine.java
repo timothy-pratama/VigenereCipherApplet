@@ -99,7 +99,6 @@ public class Engine {
             while(idx + interval < temp.length()) {
                 result += temp.substring(idx, idx + interval) + " ";
                 idx += interval;
-                System.out.println(result);
             }
             result += temp.substring(idx);
             temp = result;
@@ -116,8 +115,8 @@ public class Engine {
     }
 
     public void setPlaintext(String plaintext) {
-        this.plaintext = plaintext;
-        this.plaintext = this.plaintext.toLowerCase();
+        this.plaintext = plaintext.toLowerCase();
+        System.out.println("plaintext: " + this.plaintext);
     }
 
     public String getKey() {
@@ -276,21 +275,5 @@ public class Engine {
                 j++;
             }
         }
-    }
-    
-    /* Main Class */
-    public static void main(String[] args) {
-        Engine e = new Engine();
-        e.setMode(1);
-        e.setDisplay(1);
-//        e.setPlaintext("this plaintext");
-        e.setCiphertext("lvvq hzngfhrvl");
-        e.setKey("sony");
-//        e.encrypt();
-        e.decrypt();
-//        e.saveFile("output.txt");
-        System.out.println("plaintext: " + e.getPlaintext());
-        System.out.println("key: " + e.getKey());
-        System.out.println("ciphertext: " + e.getCiphertext());
     }
 }
