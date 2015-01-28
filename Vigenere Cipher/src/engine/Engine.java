@@ -202,7 +202,11 @@ public class Engine {
     }
     
     public void decrypt() {
-        createKey();
+        if(mode <= 2) {
+            createKey();
+        } else {
+            decodeKey();
+        }
         plaintext = "";
         int ciphertextLength = ciphertext.length();
         char c;
@@ -273,5 +277,67 @@ public class Engine {
                 j++;
             }
         }
+    }
+    
+    public void decodeKey() {
+        String tempCiphertext = ciphertext.replaceAll("\\s+","");
+        int ciphertextLength = tempCiphertext.length();
+        int initialKeyLength = key.length();
+        String currentKey = key;
+        String decrypt = "";
+        int counter = 0;
+        
+        if(mode == 3) {//autokey - standard
+            while(currentKey.length() < ciphertextLength) {
+                decrypt = "";
+                for(int i=0; i<currentKey.length(); i++) {
+                    char k = currentKey.charAt(i);
+                    char c = tempCiphertext.charAt(i);
+                    System.out.println("c= " + c);
+                    for(int j=0; j<26; j++) {
+                        if(c == vigenereSquare26[charToInteger(k)][j]) {
+                            decrypt += (char) (j+97);
+                            System.out.println("decrypt: " + decrypt);
+                            break;
+                        }
+                    }
+                }
+                currentKey += decrypt.substring(counter);
+                counter+= initialKeyLength;
+                System.out.println("current key: " + currentKey);
+                if(currentKey.length() > ciphertextLength) {
+                    currentKey = currentKey.substring(0, ciphertextLength);
+                }
+            }
+            key = currentKey;
+        } else { //autokey - extended
+            while(currentKey.length() < ciphertextLength) {
+                decrypt = "";
+                for(int i=0; i<currentKey.length(); i++) {
+                    char k = currentKey.charAt(i);
+                    char c = tempCiphertext.charAt(i);
+                    System.out.println("c= " + c);
+                    for(int j=0; j<256; j++) {
+                        if(c == vigenereSquare256[(int)(k)][j]) {
+                            decrypt += (char) (j);
+                            System.out.println("decrypt: " + decrypt);
+                            break;
+                        }
+                    }
+                }
+                currentKey += decrypt.substring(counter);
+                counter+= initialKeyLength;
+                System.out.println("current key: " + currentKey);
+                if(currentKey.length() > ciphertextLength) {
+                    currentKey = currentKey.substring(0, ciphertextLength);
+                }
+            }
+            key = currentKey;
+        }
+    }
+    
+    private int charToInteger(char c) {
+        int temp = ((int)c) - 97;
+        return temp;
     }
 }

@@ -140,7 +140,7 @@ public class EngineTest {
         System.out.println("Test Decrypt Variant Autokey Vigenere Cipher");
         Engine instance = new Engine();
         
-        instance.setKey("indonegarapenghasilmi");
+        instance.setKey("indo");
         instance.setCiphertext("vrjoee veegwefos mavjms");
         instance.setMode(3);
         instance.setDisplay(1);
@@ -256,6 +256,19 @@ public class EngineTest {
         engine.encrypt();
         String result = engine.getCiphertext();
         String expected = "ç××ì äÔÊÜÞàÆáâ";
+        assertEquals(expected, result);
+    }
+    
+    @Test
+    public void testExtendedAutokeyDecrypt() {
+        Engine e = new Engine();
+        e.setCiphertext("ÝËßÓÔÙÒÙÏÝØÜÓáÊßÊ");
+        e.setKey("if");
+        e.setMode(4);
+        e.setDisplay(1);
+        e.decrypt();
+        String result = e.getPlaintext();
+        String expected = "teknikinformatika";
         assertEquals(expected, result);
     }
 }
