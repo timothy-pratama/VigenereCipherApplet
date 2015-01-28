@@ -26,8 +26,10 @@ public class VigenereCipher extends javax.swing.JApplet {
             option = 1;
         } else if (extendedRadio.isSelected()) {
             option = 2;
-        } else {
+        } else if(autokeyRadio.isSelected()){
             option = 3;
+        } else {
+            option = 4;
         }
         if(normalRadio.isSelected()) {
             display = 1;
@@ -112,6 +114,7 @@ public class VigenereCipher extends javax.swing.JApplet {
         saveButton = new javax.swing.JButton();
         encryptButton = new javax.swing.JButton();
         decryptButton = new javax.swing.JButton();
+        autokeyExtendedButton = new javax.swing.JRadioButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -157,7 +160,7 @@ public class VigenereCipher extends javax.swing.JApplet {
         });
 
         ciphersVariant.add(autokeyRadio);
-        autokeyRadio.setText("Autokey");
+        autokeyRadio.setText("Autokey(Standard)");
 
         version1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         version1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -206,6 +209,9 @@ public class VigenereCipher extends javax.swing.JApplet {
             }
         });
 
+        ciphersVariant.add(autokeyExtendedButton);
+        autokeyExtendedButton.setText("Autokey(Extended)");
+
         javax.swing.GroupLayout saveButtonsLayout = new javax.swing.GroupLayout(saveButtons);
         saveButtons.setLayout(saveButtonsLayout);
         saveButtonsLayout.setHorizontalGroup(
@@ -214,19 +220,6 @@ public class VigenereCipher extends javax.swing.JApplet {
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addComponent(version1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(saveButtonsLayout.createSequentialGroup()
-                .addGroup(saveButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, saveButtonsLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE))
-                    .addGroup(saveButtonsLayout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addGroup(saveButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(standardRadio)
-                            .addComponent(extendedRadio)
-                            .addComponent(autokeyRadio, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, saveButtonsLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(saveButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,19 +240,37 @@ public class VigenereCipher extends javax.swing.JApplet {
                             .addComponent(groupRadio)
                             .addComponent(normalRadio))
                         .addGap(34, 34, 34))))
+            .addGroup(saveButtonsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(saveButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(saveButtonsLayout.createSequentialGroup()
+                        .addGroup(saveButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(standardRadio)
+                            .addComponent(extendedRadio))
+                        .addGap(18, 18, 18)
+                        .addGroup(saveButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(autokeyRadio)
+                            .addComponent(autokeyExtendedButton))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         saveButtonsLayout.setVerticalGroup(
             saveButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(saveButtonsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(version)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(standardRadio)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(extendedRadio)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(autokeyRadio)
                 .addGap(18, 18, 18)
+                .addGroup(saveButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(saveButtonsLayout.createSequentialGroup()
+                        .addComponent(standardRadio)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(extendedRadio))
+                    .addGroup(saveButtonsLayout.createSequentialGroup()
+                        .addComponent(autokeyRadio)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(autokeyExtendedButton)))
+                .addGap(31, 31, 31)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(version1)
@@ -347,7 +358,7 @@ public class VigenereCipher extends javax.swing.JApplet {
             .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        messageLabel.setText("TEST");
+        messageLabel.setText(" ");
 
         javax.swing.GroupLayout backgroundPanelLayout = new javax.swing.GroupLayout(backgroundPanel);
         backgroundPanel.setLayout(backgroundPanelLayout);
@@ -454,6 +465,7 @@ public class VigenereCipher extends javax.swing.JApplet {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton autokeyExtendedButton;
     private javax.swing.JRadioButton autokeyRadio;
     private javax.swing.JPanel backgroundPanel;
     private javax.swing.ButtonGroup buttonGroup1;

@@ -187,7 +187,7 @@ public class Engine {
                     j++;
                 }
             }
-        } else if (mode == 2) { //extended
+        } else if (mode == 2 || mode == 4) { //extended
             for(int i = 0; i<plaintextLength; i++) {
                 c = plaintext.charAt(i);
                 if(c == ' ' || c == '\n') {
@@ -225,7 +225,7 @@ public class Engine {
                     j++;
                 }
             }
-        } else if (mode == 2) { //extended
+        } else if (mode == 2 || mode == 4) { //extended
             for(int i = 0; i<ciphertextLength; i++) {
                 c = ciphertext.charAt(i);
                 if(c == ' ' || c == '\n') {

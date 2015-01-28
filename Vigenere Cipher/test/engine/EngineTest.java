@@ -240,4 +240,22 @@ public class EngineTest {
         String expected = "tigtynirjayhzscmzleimjrbpsalpqtgfyhkvadzwztvddobasocbqasnthfzalpqtgfyhkvadzwztvddobasocbqasnthfzalpqtgfyhkvadzwztvddobasocbqasnthfzalpqtgfyh";
         assertEquals(expected, result);
     }
+    
+    /**
+     * Check encryption for extended using autokey
+     */
+    @Test
+    public void testExtendedAutokey() {
+        System.out.println("Text Extended AutoKey");
+        Engine engine = new Engine();
+        
+        engine.setPlaintext("this plaintext");
+        engine.setKey("sony");
+        engine.setDisplay(1);
+        engine.setMode(4);
+        engine.encrypt();
+        String result = engine.getCiphertext();
+        String expected = "ç××ì äÔÊÜÞàÆáâ";
+        assertEquals(expected, result);
+    }
 }
