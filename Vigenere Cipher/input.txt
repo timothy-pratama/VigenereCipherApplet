@@ -1,1 +1,1 @@
-input file from txt file
+ini input dari file eksternal :D

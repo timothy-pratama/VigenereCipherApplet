@@ -6,10 +6,8 @@
 package gui;
 
 import engine.Engine;
-import java.awt.HeadlessException;
 import java.io.File;
 import javax.swing.JFileChooser;
-import javax.swing.plaf.basic.BasicPasswordFieldUI;
 
 /**
  *
