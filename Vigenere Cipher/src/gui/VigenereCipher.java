@@ -37,7 +37,7 @@ public class VigenereCipher extends javax.swing.JApplet {
             display = 3;
         }
     }
-    
+        
     /**
      * Initializes the applet VigenereCipher
      */
