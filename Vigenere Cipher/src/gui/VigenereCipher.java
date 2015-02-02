@@ -94,6 +94,7 @@ public class VigenereCipher extends javax.swing.JApplet {
         ciphersVariant = new javax.swing.ButtonGroup();
         ciphertextOption = new javax.swing.ButtonGroup();
         buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         backgroundPanel = new javax.swing.JPanel();
         title = new javax.swing.JLabel();
         saveButtons = new javax.swing.JPanel();
@@ -209,6 +210,11 @@ public class VigenereCipher extends javax.swing.JApplet {
 
         ciphersVariant.add(autokeyExtendedButton);
         autokeyExtendedButton.setText("Autokey(Extended)");
+        autokeyExtendedButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                autokeyExtendedButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout saveButtonsLayout = new javax.swing.GroupLayout(saveButtons);
         saveButtons.setLayout(saveButtonsLayout);
@@ -461,12 +467,17 @@ public class VigenereCipher extends javax.swing.JApplet {
        }
     }//GEN-LAST:event_loadButtonActionPerformed
 
+    private void autokeyExtendedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autokeyExtendedButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_autokeyExtendedButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton autokeyExtendedButton;
     private javax.swing.JRadioButton autokeyRadio;
     private javax.swing.JPanel backgroundPanel;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup ciphersVariant;
     private javax.swing.ButtonGroup ciphertextOption;
     private javax.swing.JTextArea ciphertextTextArea;
