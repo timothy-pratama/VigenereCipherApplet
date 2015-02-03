@@ -1,1 +1,1 @@
-ini input dari file eksternal :D
+input from external file

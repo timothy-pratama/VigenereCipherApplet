@@ -75,7 +75,7 @@ public class VigenereCipher extends javax.swing.JApplet {
             java.awt.EventQueue.invokeAndWait(new Runnable() {
                 public void run() {
                     initComponents();
-                    resize(800, 520);
+                    resize(850, 550);
                 }
             });
         } catch (Exception ex) {
@@ -114,6 +114,8 @@ public class VigenereCipher extends javax.swing.JApplet {
         encryptButton = new javax.swing.JButton();
         decryptButton = new javax.swing.JButton();
         autokeyExtendedButton = new javax.swing.JRadioButton();
+        encryptFileButton = new javax.swing.JButton();
+        decryptFileButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -126,8 +128,8 @@ public class VigenereCipher extends javax.swing.JApplet {
         ciphertextTextArea = new javax.swing.JTextArea();
         messageLabel = new javax.swing.JLabel();
 
-        setMaximumSize(new java.awt.Dimension(800, 500));
-        setPreferredSize(new java.awt.Dimension(800, 500));
+        setMaximumSize(new java.awt.Dimension(850, 550));
+        setPreferredSize(new java.awt.Dimension(850, 550));
 
         backgroundPanel.setPreferredSize(new java.awt.Dimension(800, 500));
 
@@ -216,6 +218,20 @@ public class VigenereCipher extends javax.swing.JApplet {
             }
         });
 
+        encryptFileButton.setText("Encrypt File");
+        encryptFileButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encryptFileButtonActionPerformed(evt);
+            }
+        });
+
+        decryptFileButton.setText("Decrypt File");
+        decryptFileButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decryptFileButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout saveButtonsLayout = new javax.swing.GroupLayout(saveButtons);
         saveButtons.setLayout(saveButtonsLayout);
         saveButtonsLayout.setHorizontalGroup(
@@ -224,26 +240,6 @@ public class VigenereCipher extends javax.swing.JApplet {
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addComponent(version1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, saveButtonsLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(saveButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, saveButtonsLayout.createSequentialGroup()
-                        .addGroup(saveButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(saveButtonsLayout.createSequentialGroup()
-                                .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(encryptButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(saveButtonsLayout.createSequentialGroup()
-                                .addComponent(loadButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(decryptButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(29, 29, 29))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, saveButtonsLayout.createSequentialGroup()
-                        .addGroup(saveButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(removeRadio)
-                            .addComponent(groupRadio)
-                            .addComponent(normalRadio))
-                        .addGap(34, 34, 34))))
             .addGroup(saveButtonsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(saveButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -256,8 +252,31 @@ public class VigenereCipher extends javax.swing.JApplet {
                         .addGroup(saveButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(autokeyRadio)
                             .addComponent(autokeyExtendedButton))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 54, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, saveButtonsLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(saveButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(saveButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(loadButton, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(saveButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(saveButtonsLayout.createSequentialGroup()
+                                .addComponent(decryptButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(decryptFileButton))
+                            .addGroup(saveButtonsLayout.createSequentialGroup()
+                                .addComponent(encryptButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(encryptFileButton)))
+                        .addGap(7, 7, 7)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, saveButtonsLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(saveButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(removeRadio)
+                    .addComponent(groupRadio)
+                    .addComponent(normalRadio))
+                .addGap(53, 53, 53))
         );
         saveButtonsLayout.setVerticalGroup(
             saveButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -291,12 +310,14 @@ public class VigenereCipher extends javax.swing.JApplet {
                 .addGap(18, 18, 18)
                 .addGroup(saveButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saveButton)
-                    .addComponent(encryptButton))
+                    .addComponent(encryptButton)
+                    .addComponent(encryptFileButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(saveButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(loadButton)
-                    .addComponent(decryptButton))
-                .addContainerGap(18, Short.MAX_VALUE))
+                    .addComponent(decryptButton)
+                    .addComponent(decryptFileButton))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Input"));
@@ -324,11 +345,17 @@ public class VigenereCipher extends javax.swing.JApplet {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(33, 33, 33))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -354,12 +381,16 @@ public class VigenereCipher extends javax.swing.JApplet {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
         );
 
         messageLabel.setText(" ");
@@ -373,25 +404,25 @@ public class VigenereCipher extends javax.swing.JApplet {
                 .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(messageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 776, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(saveButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(backgroundPanelLayout.createSequentialGroup()
-                        .addGap(247, 247, 247)
+                        .addComponent(saveButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
                         .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(2, 2, 2))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(25, 25, 25))
         );
         backgroundPanelLayout.setVerticalGroup(
             backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgroundPanelLayout.createSequentialGroup()
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(saveButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(backgroundPanelLayout.createSequentialGroup()
-                        .addGap(244, 244, 244)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(messageLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -471,6 +502,47 @@ public class VigenereCipher extends javax.swing.JApplet {
         // TODO add your handling code here:
     }//GEN-LAST:event_autokeyExtendedButtonActionPerformed
 
+    private void encryptFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encryptFileButtonActionPerformed
+        if(keyTextArea.getText().length()==0) {
+            messageLabel.setText("Key tidak boleh kosong!");
+            return;
+        } else {
+            JFileChooser fc = new JFileChooser("C:\\Users\\timothy.pratama\\Desktop\\Tucil 1 Kriptografi\\Vigenere Cipher");
+            File input = null;
+            File output = null;
+            int retval = fc.showOpenDialog(backgroundPanel);
+            if(retval == JFileChooser.APPROVE_OPTION) {
+                input = fc.getSelectedFile();
+            }
+            retval = fc.showSaveDialog(backgroundPanel);
+            if(retval == JFileChooser.APPROVE_OPTION) {
+                output = fc.getSelectedFile();
+            }
+            engine.EncryptFile(input.getAbsolutePath(), output.getAbsolutePath(), keyTextArea.getText());
+            messageLabel.setText("Encrypt successful");
+        }
+    }//GEN-LAST:event_encryptFileButtonActionPerformed
+
+    private void decryptFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decryptFileButtonActionPerformed
+        if(keyTextArea.getText().length()==0) {
+            messageLabel.setText("Key tidak boleh kosong!");
+        } else {
+            JFileChooser fc = new JFileChooser("C:\\Users\\timothy.pratama\\Desktop\\Tucil 1 Kriptografi\\Vigenere Cipher");
+            File input = null;
+            File output = null;
+            int retval = fc.showOpenDialog(backgroundPanel);
+            if(retval == JFileChooser.APPROVE_OPTION) {
+                input = fc.getSelectedFile();
+            }
+            retval = fc.showSaveDialog(backgroundPanel);
+            if(retval == JFileChooser.APPROVE_OPTION) {
+                output = fc.getSelectedFile();
+            }
+            engine.decryptFile(input.getAbsolutePath(), output.getAbsolutePath(), keyTextArea.getText());
+            messageLabel.setText("Decrypt successful");
+        }
+    }//GEN-LAST:event_decryptFileButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton autokeyExtendedButton;
@@ -482,7 +554,9 @@ public class VigenereCipher extends javax.swing.JApplet {
     private javax.swing.ButtonGroup ciphertextOption;
     private javax.swing.JTextArea ciphertextTextArea;
     private javax.swing.JButton decryptButton;
+    private javax.swing.JButton decryptFileButton;
     private javax.swing.JButton encryptButton;
+    private javax.swing.JButton encryptFileButton;
     private javax.swing.JRadioButton extendedRadio;
     private javax.swing.JRadioButton groupRadio;
     private javax.swing.JLabel jLabel1;

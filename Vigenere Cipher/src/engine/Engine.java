@@ -1,7 +1,10 @@
 package engine;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
@@ -332,4 +335,87 @@ public class Engine {
         int temp = ((int)c) - 97;
         return temp;
     }
+    
+    public void EncryptFile(String path_input, String path_output, String key) {
+        File input = new File(path_input);
+        FileInputStream in = null;
+        try {
+            in = new FileInputStream(input);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Engine.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        byte[] isi = new byte[(int)input.length()];
+        byte[] output = new byte[(int)input.length()];
+        try {
+            int read = in.read(isi);
+        } catch (IOException ex) {
+            Logger.getLogger(Engine.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        int panjang_kunci = key.length();
+        int j=0;
+        for(int i=panjang_kunci; i<input.length(); i++) {
+            key += key.charAt(j);
+            j++;
+        }
+        j=0;
+        for(byte b : isi) {
+            output[j] = (byte) ((b+key.charAt(j))%256);
+            j++;
+        }
+        
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream(new File(path_output));
+            out.write(output);
+            out.close();
+            in.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Engine.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Engine.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("encrypt finished");
+    }
+    
+    public void decryptFile(String path_input, String path_output, String key) {
+        File input = new File(path_input);
+        FileInputStream in = null;
+        try {
+            in = new FileInputStream(input);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Engine.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        byte[] isi = new byte[(int)input.length()];
+        byte[] output = new byte[(int)input.length()];
+        try {
+            int read = in.read(isi);
+        } catch (IOException ex) {
+            Logger.getLogger(Engine.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        int panjang_kunci = key.length();
+        int j=0;
+        for(int i=panjang_kunci; i<input.length(); i++) {
+            key += key.charAt(j);
+            j++;
+        }
+        j=0;
+        for(byte b : isi) {
+            output[j] = (byte) ((b+256-key.charAt(j))%256);
+            j++;
+        }
+        
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream(new File(path_output));
+            out.write(output);
+            out.close();
+            in.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Engine.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Engine.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("decrypt finished");
+    }
+    
 }
